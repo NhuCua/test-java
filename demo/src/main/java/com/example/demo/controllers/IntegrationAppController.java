@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.models.ResponsePayload;
+import com.example.demo.payload.request.integration_app.IntegrationAppTestConnectionRequest;
 import com.example.demo.payload.request.integration_app.IntegrationAppTokenRequest;
 import com.example.demo.services.integration_app.IIntegrationAppService;
 
@@ -25,6 +26,12 @@ public class IntegrationAppController {
     @PostMapping("/get-generated-token")
     public ResponseEntity<ResponsePayload> getGeneratedToken(@RequestBody IntegrationAppTokenRequest request) {
         ResponsePayload responsePayload = integrationAppService.getGeneratedToken(request);
+        return new ResponseEntity<>(responsePayload, responsePayload.getStatus());
+    }
+
+    @PostMapping("/test-connection")
+    public ResponseEntity<ResponsePayload> testConnection(@RequestBody IntegrationAppTestConnectionRequest request) {
+        ResponsePayload responsePayload = integrationAppService.testConnection(request);
         return new ResponseEntity<>(responsePayload, responsePayload.getStatus());
     }
 }
